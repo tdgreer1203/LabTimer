@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TRiOAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="pin" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Building">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="mapnumber" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Labs" Relationship="Self.FK_Lab_Building" FromRole="Building" ToRole="Lab" />
+  </EntityType>
+  <EntityType Name="EquipmentType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kiosk">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="labID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Lab" Relationship="Self.FK_Kiosk_Kiosk" FromRole="Kiosk" ToRole="Lab" />
+    <NavigationProperty Name="Sessions" Relationship="Self.FK_Session_Kiosk" FromRole="Kiosk" ToRole="Session" />
+  </EntityType>
+  <EntityType Name="Lab">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="buildingID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Building" Relationship="Self.FK_Lab_Building" FromRole="Lab" ToRole="Building" />
+    <NavigationProperty Name="Kiosks" Relationship="Self.FK_Kiosk_Kiosk" FromRole="Lab" ToRole="Kiosk" />
+  </EntityType>
+  <EntityType Name="Loan">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="studentID" Type="String" MaxLength="12" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="equipmenttype" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="loandate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="returndate" Type="DateTime" Precision="0" />
+    <Property Name="serialnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="tagnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_Loan_Student" FromRole="Loan" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Session">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="starttime" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="endtime" Type="Time" Precision="7" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="studentID" Type="String" MaxLength="12" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="kioskID" Type="Int32" Nullable="false" />
+    <Property Name="active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Kiosk" Relationship="Self.FK_Session_Kiosk" FromRole="Session" ToRole="Kiosk" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_Session_Student" FromRole="Session" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="studentnumber" />
+    </Key>
+    <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="middleinitial" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="phone" Type="String" MaxLength="12" FixedLength="true" Unicode="true" />
+    <Property Name="studentnumber" Type="String" MaxLength="12" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="cardnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="pinnumber" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Loans" Relationship="Self.FK_Loan_Student" FromRole="Student" ToRole="Loan" />
+    <NavigationProperty Name="Sessions" Relationship="Self.FK_Session_Student" FromRole="Student" ToRole="Session" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Lab_Building">
+    <End Role="Building" Type="Self.Building" Multiplicity="1" />
+    <End Role="Lab" Type="Self.Lab" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Building">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Lab">
+        <PropertyRef Name="buildingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kiosk_Kiosk">
+    <End Role="Lab" Type="Self.Lab" Multiplicity="1" />
+    <End Role="Kiosk" Type="Self.Kiosk" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lab">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Kiosk">
+        <PropertyRef Name="labID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Session_Kiosk">
+    <End Role="Kiosk" Type="Self.Kiosk" Multiplicity="1" />
+    <End Role="Session" Type="Self.Session" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kiosk">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Session">
+        <PropertyRef Name="kioskID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Loan_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Loan" Type="Self.Loan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="studentnumber" />
+      </Principal>
+      <Dependent Role="Loan">
+        <PropertyRef Name="studentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Session_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Session" Type="Self.Session" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="studentnumber" />
+      </Principal>
+      <Dependent Role="Session">
+        <PropertyRef Name="studentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TRiOAppEntities8" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Buildings" EntityType="Self.Building" />
+    <EntitySet Name="EquipmentTypes" EntityType="Self.EquipmentType" />
+    <EntitySet Name="Kiosks" EntityType="Self.Kiosk" />
+    <EntitySet Name="Labs" EntityType="Self.Lab" />
+    <EntitySet Name="Loans" EntityType="Self.Loan" />
+    <EntitySet Name="Sessions" EntityType="Self.Session" />
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_Lab_Building" Association="Self.FK_Lab_Building">
+      <End Role="Building" EntitySet="Buildings" />
+      <End Role="Lab" EntitySet="Labs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kiosk_Kiosk" Association="Self.FK_Kiosk_Kiosk">
+      <End Role="Lab" EntitySet="Labs" />
+      <End Role="Kiosk" EntitySet="Kiosks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Session_Kiosk" Association="Self.FK_Session_Kiosk">
+      <End Role="Kiosk" EntitySet="Kiosks" />
+      <End Role="Session" EntitySet="Sessions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Loan_Student" Association="Self.FK_Loan_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Loan" EntitySet="Loans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Session_Student" Association="Self.FK_Session_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Session" EntitySet="Sessions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
