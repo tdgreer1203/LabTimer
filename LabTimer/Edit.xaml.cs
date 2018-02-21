@@ -25,6 +25,8 @@ namespace LabTimer
 
         public Edit(String id)
         {
+            //Check to see if the student is in the database first.
+
             stu = db.Students.Where(x => x.studentnumber == id || x.cardnumber == id).First();
 
             studentID = stu.studentnumber;

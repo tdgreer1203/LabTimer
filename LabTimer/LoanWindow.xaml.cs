@@ -21,13 +21,15 @@ namespace LabTimer
     {
         TRiOAppEntities8 db = new TRiOAppEntities8();
         List<EquipmentType> equipment;
+        Student stu = new Student();
 
         public Loan(string id)
         {
             InitializeComponent();
-            txtID.Text = id;
+            txtID.Text = id.Trim();
             equipment = db.EquipmentTypes.ToList();
             cmbEquipment.ItemsSource = equipment;
+            txtID.IsEnabled = false;
         }
 
         public Loan()

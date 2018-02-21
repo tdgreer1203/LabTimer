@@ -28,7 +28,7 @@
         <TextBlock HorizontalAlignment="Left" Grid.Column="1" FontWeight="Bold" Margin="50,55,0,0" FontSize="20" Grid.Row="2" TextWrapping="NoWrap" Text="Admin PIN:" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Center" Grid.Column="0" FontWeight="Bold" Margin="0,55,110,0" FontSize="20" Grid.Row="2" Text="Item ID:" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2" FontSize="20" VerticalAlignment="Top" Name="txtID" Width="100" Margin="75,55,0,0"/>
-        <DataGrid Name="gridEquipment" SelectionMode="Single" IsReadOnly="True" HorizontalAlignment="Center" Height="75" Margin="40,47,40,0" Grid.Row="1" VerticalAlignment="Top" Width="712" Grid.ColumnSpan="2" CanUserAddRows="False" ItemsSource="{Binding}" AutoGenerateColumns="False" Grid.RowSpan="2">
+        <DataGrid Name="gridEquipment" SelectionMode="Single" IsReadOnly="True" HorizontalAlignment="Center" Height="118" Margin="40,24,40,0" Grid.Row="1" VerticalAlignment="Top" Width="712" Grid.ColumnSpan="2" CanUserAddRows="False" ItemsSource="{Binding}" AutoGenerateColumns="False" Grid.RowSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding id}"/>
                 <DataGridTextColumn Header="Student ID" Width="100" Binding="{Binding studentID}"/>

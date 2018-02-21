@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LabTimer"
         mc:Ignorable="d"
                 Title="Lab Tracker" WindowState="Maximized" WindowStyle="None" Height="1307.145" Width="1752.628">
-    <Grid Margin="0,0,0,0">
+    <Grid Margin="0,0,0,0" FocusManager.FocusedElement="{Binding ElementName=txtFirst}">
         <Grid.Background>
             <ImageBrush Stretch="Fill" ImageSource="bg.jpg" AlignmentX="Center" AlignmentY="Center" />
         </Grid.Background>
